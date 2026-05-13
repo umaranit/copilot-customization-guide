@@ -1,4 +1,4 @@
-# Scalable & Reusable Agent Design in GitHub Copilot
+# Designing Scalable, Reusable GitHub Copilot Customizations
 
 A self-paced tutorial for working developers who know VS Code and Git, but are new to customizing GitHub Copilot. Eight modules plus one appendix, examples only, no exercises. Aligned with the current GitHub Copilot and VS Code customization taxonomy (instructions, prompts, skills, custom agents, MCP, hooks, plugins, agentic workflows) and the [GitHub Well-Architected guidance on governing agents](https://wellarchitected.github.com/library/governance/recommendations/governing-agents/).
 
