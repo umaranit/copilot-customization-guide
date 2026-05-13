@@ -2,7 +2,11 @@
 
 > Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
+> **Prerequisites.** [Module 0](module-00-orientation.md) — orientation and reading paths. No prior customization work assumed.
+>
 > **What this module is.** A simple way to think about Copilot's customization options so you can pick the right one for each job. For setup steps, file paths, and frontmatter fields, see the [VS Code customization docs](https://code.visualstudio.com/docs/copilot/copilot-customization) and the [GitHub Copilot docs](https://docs.github.com/en/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses).
+>
+> **If something doesn't fire as you read along.** Jump straight to the [Appendix](appendix-evaluating-debugging.md). It covers the two debug surfaces (Show Agent Debug Logs, Agent Customizations editor) that show what actually loaded for each request. Don't wait until the end of the course.
 
 ## 1. Think in tiers, not file types
 
@@ -77,8 +81,27 @@ These are easy to slip into and easy to fix once you spot them.
 - **Putting team rules inside a custom agent.** Anyone using the default agent won't see them. Rules that always apply belong in instructions.
 - **Typing `/skillName` over and over.** That's a prompt, not a skill. If you're the one triggering it every time, give it a slash command.
 
-## 5. What to carry into the rest of the course
+## 5. The decision cheat sheet
+
+Most of the rest of the course returns to one decision table. Here's the seed version — each later module re-shows it with new rows annotated as that primitive is introduced.
+
+| If you want… | Reach for | Loading rule | Cost |
+|---|---|---|---|
+| A rule that should hold across every request | **Repo / personal / org instruction** | Every request | High (eager) |
+| A rule that only matters for certain files | **Scoped instruction** (`applyTo` glob) | On glob match | Medium (eager when matched) |
+| A workflow *you* will run repeatedly via slash command | **Prompt** | On user invoke | Zero unless invoked |
+| A body of knowledge the *model* should reach for when relevant | **Skill** | Description always; body when model decides | Low (description only) until used |
+| A persona with its own tools and defaults | **Custom agent** | On user invoke | Zero unless invoked |
+| A capability the model otherwise can't reach (DB, API, CLI) | **MCP server** | Tool list always; tool call when model decides | Low (tool list only) until called |
+| A guarantee that must always run, regardless of model intent | **Hook** | On lifecycle event | Zero (runs outside model context) |
+| A wide read where the answer is small | **Subagent** | On main agent's request | Low (only the summary returns) |
+| A bundle of the above shared across repos | **Plugin** | Same as the contained primitives | Same as the contained primitives |
+| Work that should run on a repo event with no developer present | **Agentic workflow** (CI) | On CI event | Per-run runner + model cost |
+
+Keep this table in mind as you read. Every later module is, in effect, *one row of this table, in depth*.
+
+## 6. What to carry into the rest of the course
 
 - Think in **tiers**, not file types. The tier tells you the cost and the activator.
 - When two primitives feel similar, ask **who pulls the trigger** (you, the model, an event, or an agent) and **how strict the rule needs to be** (preference or guarantee).
-- The next modules go one level deep on each tier: instructions (Module 2), prompts (Module 3), skills (Module 4), custom agents + MCP + hooks (Module 5), plugins + agentic workflows (Module 6), subagents and a full example (Module 7).
+- The next modules go one level deep on each row of the cheat sheet: instructions (Module 2), prompts (Module 3), skills (Module 4), custom agents + MCP + hooks + subagents (Module 5), plugins and marketplaces (Module 6), composition on a real codebase (Module 7), agentic workflows in CI (Module 8), governance at scale (Module 9). The [Appendix](appendix-evaluating-debugging.md) is the operating manual you can flip to at any point.

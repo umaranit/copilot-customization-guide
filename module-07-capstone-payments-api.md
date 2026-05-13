@@ -1,8 +1,10 @@
-# Module 7: Subagents & Composition — Putting It All Together
+# Module 7: Capstone — Composing Primitives on `payments-api`
 
 > Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
-> **What this module is.** A walkthrough that puts every primitive together on one realistic codebase. We follow a `payments-api` repo from "Copilot installed, nothing customized" to a setup where instructions, prompts, skills, custom agents, MCP, hooks, and subagents each own a piece of the work. For subagent syntax and tool details, see the [VS Code subagent docs](https://code.visualstudio.com/docs/copilot/copilot-customization).
+> **Prerequisites.** [Modules 1–6](module-01-customization-primitives.md). This module assumes you've met every primitive at least once and now wants to see them work together.
+>
+> **What this module is.** A walkthrough that puts every primitive together on one realistic codebase. We follow a `payments-api` repo from "Copilot installed, nothing customized" to a setup where instructions, prompts, skills, custom agents, MCP, hooks, and subagents each own a piece of the work.
 
 The first six modules looked at primitives one at a time. The real skill is composition — knowing which primitive owns which part of the work, and when adding another piece actually helps versus when it just adds noise.
 
@@ -106,25 +108,15 @@ Both are deterministic guarantees, not advice. That's the line between an instru
 
 ---
 
-## 8. Layer 7 — Subagents: when to spawn one
+## 8. Layer 7 — Subagents: dispatched for read-heavy work
 
-A subagent is a stateless worker the main agent can dispatch to. It gets a focused task, does it, and returns a structured summary. The main agent's context never sees the subagent's work in detail — only the summary.
-
-The right time to spawn one is when a task would otherwise blow up the main context: reading 30 files to find a pattern, exploring an unfamiliar module, doing a wide search where most results are irrelevant.
-
-**On `payments-api`, three good subagent uses:**
+Subagents were introduced in [Module 5](module-05-custom-agents-mcp-hooks-subagents.md). On `payments-api`, three uses are worth wiring in from the start:
 
 - **"Where is X used?"** When the question requires reading dozens of call sites. The subagent reports back: "12 usages, here are the 3 that look relevant." The main agent doesn't need the other 9 files in its context.
 - **"Does this PR break any tests?"** The subagent runs the relevant tests, reads any failures, and returns a one-paragraph verdict.
 - **"Find similar code."** The subagent does a semantic + grep sweep and returns a ranked list. The main agent then decides which one to look at in detail.
 
-**Bad uses on this codebase:**
-
-- "Explain this function." The main agent can read one file. Spawning a subagent adds latency for no benefit.
-- "Make these three edits." Edits should stay in the main thread — they need to be visible to the user as they happen.
-- "Pick a name for this variable." Far too small. Subagent overhead exceeds the work.
-
-The rule of thumb: spawn a subagent when the *exploration* is large but the *answer* is small. A subagent that returns a 2,000-token report defeats its own purpose — at that point you've just shifted the context bloat, not eliminated it.
+The pattern: the main agent stays focused on the *answer*; the subagent absorbs the *exploration*. The other primitives we've layered — the `codebase-tour` skill, the `internal-issue-tracker` MCP tool — are exactly what a subagent dispatched on `payments-api` would invoke.
 
 ---
 
@@ -169,4 +161,4 @@ The whole course can be summarized in one sentence: *match the loading rule to t
 
 ## What to carry into the next module
 
-Module 7 was a single-codebase view: how all the primitives compose for one team. Module 8 zooms out to the organization: how dozens of teams keep their customizations consistent, safe, auditable, and cost-bounded without becoming a bottleneck. The appendix that follows both modules is the operational complement — how to tell, day to day, whether any of this is actually working.
+Module 7 was a single-codebase view: how all the primitives compose for one team in the editor. Module 8 takes the same content surface (skills, prompts) and shows how to fire them from CI — the agentic-workflow side. Module 9 then zooms out to the organization: how dozens of teams keep their customizations consistent, safe, auditable, and cost-bounded without becoming a bottleneck. The appendix is the operational complement — how to tell, day to day, whether any of this is actually working.

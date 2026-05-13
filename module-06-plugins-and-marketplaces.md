@@ -1,25 +1,28 @@
-# Module 6: Reuse Across Repos & Teams — Plugins, Marketplaces, Agentic Workflows
+# Module 6: Reuse Across Repos & Teams — Plugins and Marketplaces
 
 > Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
-> **What this module is.** A guide to moving customizations beyond a single repo — bundling them as plugins, sharing them through a marketplace, and extending Copilot from the editor into CI with agentic workflows. For install commands and YAML schemas, see the [official Copilot plugins docs](https://docs.github.com/copilot) and [`github/awesome-copilot`](https://github.com/github/awesome-copilot).
+> **Prerequisites.** [Modules 2–5](module-02-instructions-that-scale.md) — the primitives this module packages and distributes.
+>
+> **What this module is.** A guide to moving customizations beyond a single repo — bundling them as plugins, sharing them through a marketplace. For install commands and YAML schemas, see the [official Copilot plugins docs](https://docs.github.com/copilot) and [`github/awesome-copilot`](https://github.com/github/awesome-copilot).
+>
+> **Cost.** A plugin's contents inherit each underlying primitive's loading rule — instructions in a plugin are still eager, skills in a plugin still split into eager description plus lazy body. The packaging is free; the *contents* still pay their normal cost.
 
 By Module 5 you can build sophisticated customizations inside one repo. The next problem is distribution: ten teams reinventing the same `db-migration` skill, or one team's well-tuned reviewer agent never reaching the rest of the org. This module is about packaging and reach.
 
-> **A note on platforms.** Plugins and marketplaces are Copilot features — they work for any Copilot user, regardless of where the source code is hosted (GitHub, Azure DevOps, GitLab, Bitbucket). **Org-level instructions** and **agentic workflows** are GitHub platform features. If you're on Azure DevOps or another host, the org-tier section in Module 2 and the workflow section below have explicit fallbacks.
+> **A note on platforms.** Plugins and marketplaces are Copilot features — they work for any Copilot user, regardless of where the source code is hosted (GitHub, Azure DevOps, GitLab, Bitbucket). **Org-level instructions** are a GitHub platform feature. If you're on Azure DevOps or another host, the org-tier section in Module 2 has explicit fallbacks. The CI side — agentic workflows and their non-GitHub equivalents — is covered in [Module 8](module-08-agentic-workflows-in-ci.md).
 
 ---
 
-## 1. Four ways customizations spread
+## 1. Three ways customizations spread
 
 | Mechanism | Who it reaches | When it loads | Best for |
 |-----------|----------------|---------------|----------|
 | Repository files (`.github/`, `.vscode/`) | Anyone working in that repo | Per the loading rules from Module 1 | Code that lives with one project |
 | Org-level instructions *(GitHub Enterprise/Business)* | Everyone in the org | Every request | Policies, standards, security rules |
 | Plugin (installed) | Anyone who installs it | Per the loading rules, like local files | Reusable bundles across repos/teams |
-| Agentic workflow *(GitHub Actions)* / CI equivalent | Triggered in CI by events | When the event fires (PR opened, issue labeled) | Work that should happen without an editor |
 
-The first two you already know. This module covers the last two.
+The first two you already know. This module covers the third. The fourth surface — work that runs in CI on a repo event — is its own module ([Module 8](module-08-agentic-workflows-in-ci.md)).
 
 ---
 
@@ -62,44 +65,7 @@ Versioning matters more than people expect. A skill that worked when it was writ
 
 ---
 
-## 4. Agentic workflows: Copilot in CI
-
-Agentic workflows let you define Copilot-driven automations as Markdown files that run as GitHub Actions. The trigger is an event — a PR opened, an issue labeled, a comment posted — and the body describes what the agent should do.
-
-This is a different shape of work from the editor. In the editor, a developer is in the loop, judging each suggestion. In a workflow, the agent runs unattended and its output goes straight to a PR comment, an issue update, or a code change.
-
-**Good fits for an agentic workflow:**
-
-- Triage: when a new issue is filed, label it and add a one-paragraph summary
-- First-pass review: when a PR opens, post a checklist of what the author should verify
-- Routine maintenance: when a dependency update PR appears, run the changelog through a summarizer
-
-**Poor fits:**
-
-- Anything where a wrong answer has real cost (production deploys, security decisions)
-- Anything that needs context the workflow can't see (private design docs, recent Slack threads)
-- Things a deterministic script does just as well (linting, formatting)
-
-The judgment is the same one as for any automation: what's the cost of being wrong, and how often will it be wrong? Agentic workflows are good at low-stakes, high-volume work. They're bad at irreversible decisions.
-
-### If you're not on GitHub Actions
-
-The agentic-workflow *file format* is GitHub-specific, but the *pattern* is portable. Any CI system that can react to repo events and run a shell command can do the same job:
-
-| Platform | Equivalent surface |
-|---|---|
-| Azure DevOps | Pipelines triggered by PR / work-item / build events; the pipeline step shells out to the Copilot CLI or a model API and posts back via the ADO REST API |
-| GitLab | CI jobs triggered by merge-request hooks; same shape — call the model, post a note via the GitLab API |
-| Bitbucket | Pipelines + webhooks |
-| Jenkins, CircleCI, etc. | Job triggered by webhook; same pattern |
-
-The portable design lesson: keep the *prompt* (what the agent should do) and the *trigger* (the CI YAML or workflow file) separate. The prompt is just a Markdown file in your repo or plugin — it works the same whether GitHub Actions, ADO Pipelines, or a cron job invokes it. When you migrate platforms, only the trigger needs rewriting.
-
-A practical pattern for ADO customers: store the prompt as `.github/prompts/triage-issue.prompt.md` (yes, even on ADO — the path is just convention; Copilot in VS Code reads it the same way), and have an ADO Pipeline call the Copilot CLI with that prompt file when a work item is created. The skill, the prompt, and the model logic all stay in the repo where developers can edit them; only the pipeline YAML lives in ADO.
-
----
-
-## 5. What belongs where
+## 4. What belongs where
 
 A practical decision table when you have something reusable in hand:
 
@@ -109,13 +75,13 @@ A practical decision table when you have something reusable in hand:
 | A rule that applies to every project in the org | Org instructions (GitHub EMU/Business) — or a shared template repo / internal plugin elsewhere | One place to update; everyone gets it |
 | A capability used by 3+ repos | Plugin | Versioned, installable, removable; works on any host |
 | A capability used by the whole industry | Public marketplace plugin | Others benefit; you get fixes back |
-| Work that should happen on a repo event, with no developer present | Agentic workflow (GitHub Actions) — or ADO Pipeline / GitLab CI doing the same thing | The editor isn't the right surface |
+| Work that should happen on a repo event, with no developer present | **Agentic workflow** — see [Module 8](module-08-agentic-workflows-in-ci.md) | The editor isn't the right surface |
 
-The mistake to avoid is starting at "plugin" or "workflow" because they sound like the right level of sophistication. Start at the lowest tier that solves the problem. Promote up only when the same thing is being re-solved.
+The mistake to avoid is starting at "plugin" because it sounds like the right level of sophistication. Start at the lowest tier that solves the problem. Promote up only when the same thing is being re-solved.
 
 ---
 
-## 6. A worked example: a `migration-toolkit` plugin
+## 5. A worked example: a `migration-toolkit` plugin
 
 A team has built, over six months: a `db-migration` skill, a `/migrate-column` prompt, a custom `migration-reviewer` agent, and an MCP server that connects to a staging database for dry-runs. Three other teams have copy-pasted some of these into their repos.
 
@@ -133,25 +99,20 @@ That's the signal to package.
 - A pinned model choice (let the consumer decide)
 - Eager instructions ("always check migrations carefully") — that belongs in consuming repos if they want it
 
-**What might also become an agentic workflow:**
-
-When a PR adds a file matching `migrations/*.sql`, a workflow runs the `migration-reviewer` agent on the diff and posts its analysis as a PR comment. Now the same capability works whether the migration was written in the editor or generated by some other process.
-
-The plugin and the workflow are the same logic in two surfaces. That's usually the sign that a piece of work has matured enough to be packaged.
+**Where the same logic might also run:** when a PR adds a file matching `migrations/*.sql`, an [agentic workflow](module-08-agentic-workflows-in-ci.md) can run the `migration-reviewer` agent on the diff and post its analysis as a PR comment. Now the same capability works whether the migration was written in the editor or generated by some other process. That cross-surface reuse — same skill, two triggers — is the topic of Module 8.
 
 ---
 
-## 7. Common mistakes worth avoiding
+## 6. Common mistakes worth avoiding
 
 - **Packaging too early.** A plugin built from one repo's experience usually encodes one repo's assumptions. Wait for the third copy-paste.
 - **Mixing concerns.** "Our team's plugin" with reviewer rules, deployment scripts, and a markdown linter is three plugins pretending to be one.
 - **Eager instructions inside plugins.** Every consumer pays the token cost on every request. Push as much as possible into skills and prompts.
 - **No versioning discipline.** Plugins drift. APIs change. Pin versions in consuming repos and review updates deliberately.
-- **Using agentic workflows for high-stakes decisions.** Unattended agents are good at summarizing and triaging. They're bad at deciding what merges.
-- **Duplicating between plugin and workflow.** If the same logic runs in both surfaces, factor the prompt or skill out and have both call it.
+- **Overlapping plugins.** Two plugins both contributing a `db-migration` skill will confuse the model. Decide which one owns the domain.
 
 ---
 
 ## What to carry into the next module
 
-So far each module has covered one primitive. Module 7 puts them together: a single realistic codebase where instructions, prompts, skills, custom agents, MCP servers, and subagents all play a role — and where the design choice is which primitive owns which part of the work. We'll also look at when a subagent is the right answer and when it's just a longer way to do something the main agent could do directly.
+So far each module has covered one primitive or one packaging mechanism. Module 7 puts them together: a single realistic codebase where instructions, prompts, skills, custom agents, MCP servers, hooks, and subagents each play a role — and where the design choice is which primitive owns which part of the work. Module 8 then takes the same skills and prompts and shows how to fire them from CI.

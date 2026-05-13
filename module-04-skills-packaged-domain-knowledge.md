@@ -2,7 +2,11 @@
 
 > Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
+> **Prerequisites.** [Module 1](module-01-customization-primitives.md) (loading-rule cheat sheet); [Module 2](module-02-instructions-that-scale.md) (so you can tell when a long instruction wants to be a skill); [Module 3](module-03-prompts-as-reusable-workflows.md) (the user-invoked sibling of skills).
+>
 > **What this module is.** A guide to writing skills the model will actually reach for, and structuring them so they stay useful as they grow. For folder layout details, manifest fields, and packaging steps, see the [VS Code agent skills docs](https://code.visualstudio.com/docs/copilot/copilot-customization) and the examples in [`github/awesome-copilot/skills/`](https://github.com/github/awesome-copilot/tree/main/skills).
+>
+> **Cost.** The skill **description** is loaded **on every request** (small — a few sentences). The skill **body** is loaded **only when the model decides** to use it. Most of the design effort goes into the description because that decides whether the body ever runs.
 
 ## 1. What makes a skill different
 
@@ -100,8 +104,25 @@ The mental model: instructions set the *baseline*, skills add *expertise on dema
 - **Folder-without-need.** A skill with one file in it doesn't need a folder. Don't pre-build structure you're not using.
 - **Bodies that explain instead of instruct.** Background and history don't help the model act. Patterns, templates, and steps do.
 
-## 7. What to carry into the next module
+## 7. Cheat sheet, with skills in focus
+
+The decision table from Module 1, with the row this module covered annotated:
+
+| If you want… | Reach for | Loading rule | Cost |
+|---|---|---|---|
+| A rule that should hold across every request | Repo / personal / org instruction | Every request | High (eager) |
+| A rule that only matters for certain files | Scoped instruction (`applyTo` glob) | On glob match | Medium (eager when matched) |
+| A workflow *you* will run repeatedly | Prompt | On user invoke | Zero unless invoked |
+| **Knowledge the *model* should reach for when relevant** | **→ Skill** | **Description always; body when model decides** | **Low (description only) until used — covered here** |
+| A persona with its own tools and defaults | Custom agent | On user invoke | Zero unless invoked |
+| A capability the model can't otherwise reach | MCP server | Tool list always; call when model decides | Low until called |
+| A guarantee that always runs | Hook | On lifecycle event | Zero (outside model context) |
+| A wide read with a small answer | Subagent | On main agent's request | Low (summary only) |
+
+The skill row is the only one with a *split* loading rule: eager description, lazy body. That split is the whole reason the primitive exists — it lets you advertise large knowledge cheaply.
+
+## 8. What to carry into the next module
 
 - Skills are the **on-demand knowledge layer**. The description is eager; the body is lazy. Most of the design work goes into the description.
 - A skill earns its keep when its body would be too long for an instruction *and* its trigger doesn't depend on the user typing a command.
-- The next module covers **custom agents**, **MCP**, and **hooks** — three primitives that change *how* and *what* the model can do, rather than *what it knows*.
+- The next module covers **custom agents**, **MCP**, **hooks**, and **subagents** — four primitives that change *how* and *what* the model can do, rather than *what it knows*.

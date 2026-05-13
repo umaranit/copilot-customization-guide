@@ -1,10 +1,12 @@
-# Module 8: Governance & Centralization at Scale
+# Module 9: Governance & Centralization at Scale
 
 > Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
+> **Prerequisites.** [Module 1](module-01-customization-primitives.md) (the loading-rule cheat sheet — organizational eager surfaces are the most expensive); [Module 6](module-06-plugins-and-marketplaces.md) (plugins as the portable distribution mechanism); [Module 8](module-08-agentic-workflows-in-ci.md) (CI-side surfaces have their own cost shape).
+>
 > **What this module is.** A guide to the questions that come up once Copilot customizations stop being one team's problem and become an organization's problem: who controls what, how do you keep it consistent, how do you audit it, how do you keep costs predictable, and how do you do all that without becoming a bottleneck. Anchored in the [GitHub Well-Architected guidance on governing agents](https://wellarchitected.github.com/library/governance/recommendations/governing-agents/), with explicit fallbacks for teams not on GitHub Enterprise.
 
-The first seven modules treated customizations as a developer problem: which primitive to pick, how to compose them, how to debug them. This module treats them as an organizational problem. Once dozens of teams are writing their own skills, agents, and MCP configurations — and once cloud agents are submitting PRs alongside humans — the failure modes shift. A misconfigured shared agent, an unreviewed MCP server, or an unmanaged spend limit can affect many repositories at once.
+The first eight modules treated customizations as a developer problem: which primitive to pick, how to compose them, how to run them in CI, how to debug them. This module treats them as an organizational problem. Once dozens of teams are writing their own skills, agents, and MCP configurations — and once cloud agents are submitting PRs alongside humans — the failure modes shift. A misconfigured shared agent, an unreviewed MCP server, or an unmanaged spend limit can affect many repositories at once.
 
 The good news: most of the design discipline from the earlier modules carries over. The new question is *who decides what at which level*, not *what does a good skill look like*.
 
@@ -164,7 +166,7 @@ The minimum cost-governance setup:
 - **Model selection guidance** — make it clear which models are appropriate for which tasks. A reviewer agent doing pattern matching probably doesn't need the most expensive model.
 - **Adoption + consumption tracking** in the same dashboard. Cost without adoption context is just panic; cost trended against adoption tells you whether each marginal dollar is producing value.
 
-**For non-Enterprise teams:** Copilot per-seat licensing is straightforward; the cost shape gets more complex when you start running CI-side automations that mimic agentic workflows (Module 6). Apply the same discipline: budget per pipeline, alerting on minute consumption, model selection guidance for whatever API you're calling.
+**For non-Enterprise teams:** Copilot per-seat licensing is straightforward; the cost shape gets more complex when you start running CI-side automations like the agentic workflows from [Module 8](module-08-agentic-workflows-in-ci.md). Apply the same discipline: budget per pipeline, alerting on minute consumption, model selection guidance for whatever API you're calling.
 
 ---
 
@@ -211,7 +213,7 @@ Everything else — enterprise custom agents, automatic code review, plugin mark
 
 ## 12. Where this fits in the course
 
-Modules 1–6 taught the building blocks. Module 7 showed how to compose them on one realistic codebase. This module zoomed out to the org level: how to keep many such codebases consistent, safe, and affordable without becoming the bottleneck.
+Modules 1–6 taught the building blocks. Module 7 showed how to compose them on one realistic codebase. Module 8 took the same content into CI. This module zoomed out to the org level: how to keep many such codebases consistent, safe, and affordable without becoming the bottleneck.
 
 The thread through all of it: **match the level of control to the level the rule actually applies at.** Personal preference → personal instructions. Project rule → repo. Compliance baseline → org or shared library. Enterprise-wide policy floor → enterprise (or its non-platform equivalent). Skip a level and you either smother teams with rules they don't need or leave gaps that bite you later.
 
