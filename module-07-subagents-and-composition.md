@@ -1,6 +1,6 @@
 # Module 7: Subagents & Composition — Putting It All Together
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A walkthrough that puts every primitive together on one realistic codebase. We follow a `payments-api` repo from "Copilot installed, nothing customized" to a setup where instructions, prompts, skills, custom agents, MCP, hooks, and subagents each own a piece of the work. For subagent syntax and tool details, see the [VS Code subagent docs](https://code.visualstudio.com/docs/copilot/copilot-customization).
 

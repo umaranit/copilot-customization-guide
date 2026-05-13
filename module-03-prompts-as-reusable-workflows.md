@@ -1,6 +1,6 @@
 # Module 3: Prompts as Reusable Workflows
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A guide to turning recurring chat asks into reusable, parameterized workflows — and keeping them thin enough to stay maintainable. For frontmatter syntax, slash-command setup, and `/create-prompt` scaffolding, see the [VS Code prompt files docs](https://code.visualstudio.com/docs/copilot/copilot-customization).
 

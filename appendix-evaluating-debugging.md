@@ -1,6 +1,6 @@
 # Appendix: Evaluating & Debugging Customizations
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this appendix is.** A practical reference for the part the rest of the course assumes: how to tell whether your customizations are actually working. Covers the built-in debug surfaces, the most common reasons primitives silently fail to fire, and a lightweight evaluation loop you can run in an afternoon. For exact UI paths and command names, see the [VS Code Customize AI docs](https://code.visualstudio.com/docs/copilot/copilot-customization) — they change faster than this document will.
 

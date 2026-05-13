@@ -1,6 +1,6 @@
 # Module 8: Governance & Centralization at Scale
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A guide to the questions that come up once Copilot customizations stop being one team's problem and become an organization's problem: who controls what, how do you keep it consistent, how do you audit it, how do you keep costs predictable, and how do you do all that without becoming a bottleneck. Anchored in the [GitHub Well-Architected guidance on governing agents](https://wellarchitected.github.com/library/governance/recommendations/governing-agents/), with explicit fallbacks for teams not on GitHub Enterprise.
 

@@ -1,6 +1,6 @@
 # Module 5: Custom Agents, MCP, and Hooks
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A guide to three primitives that change *what* the model can do and *how* it behaves — not what it knows. For frontmatter fields, MCP server configuration, and hook event names, see the [VS Code customization docs](https://code.visualstudio.com/docs/copilot/copilot-customization).
 

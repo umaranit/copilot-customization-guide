@@ -1,6 +1,6 @@
 # Module 2: Instructions That Scale
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A practical guide to writing Copilot instructions that stay useful as your repo, team, and codebase grow. For file paths, frontmatter fields, and precedence rules, see the [GitHub Copilot docs](https://docs.github.com/en/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses) and the [VS Code docs](https://code.visualstudio.com/docs/copilot/copilot-customization).
 

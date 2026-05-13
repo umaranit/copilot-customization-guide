@@ -1,6 +1,6 @@
 # Module 6: Reuse Across Repos & Teams — Plugins, Marketplaces, Agentic Workflows
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A guide to moving customizations beyond a single repo — bundling them as plugins, sharing them through a marketplace, and extending Copilot from the editor into CI with agentic workflows. For install commands and YAML schemas, see the [official Copilot plugins docs](https://docs.github.com/copilot) and [`github/awesome-copilot`](https://github.com/github/awesome-copilot).
 

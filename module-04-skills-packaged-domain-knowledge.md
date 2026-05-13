@@ -1,6 +1,6 @@
 # Module 4: Skills — Packaged Domain Knowledge
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A guide to writing skills the model will actually reach for, and structuring them so they stay useful as they grow. For folder layout details, manifest fields, and packaging steps, see the [VS Code agent skills docs](https://code.visualstudio.com/docs/copilot/copilot-customization) and the examples in [`github/awesome-copilot/skills/`](https://github.com/github/awesome-copilot/tree/main/skills).
 

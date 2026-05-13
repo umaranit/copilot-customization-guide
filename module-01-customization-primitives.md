@@ -1,6 +1,6 @@
 # Module 1: Customization Primitives & Loading Rules
 
-> Part of [Scalable & Reusable Agent Design in GitHub Copilot](README.md).
+> Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >
 > **What this module is.** A simple way to think about Copilot's customization options so you can pick the right one for each job. For setup steps, file paths, and frontmatter fields, see the [VS Code customization docs](https://code.visualstudio.com/docs/copilot/copilot-customization) and the [GitHub Copilot docs](https://docs.github.com/en/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses).
 
