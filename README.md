@@ -14,7 +14,7 @@ This course sits alongside those references and focuses on **design choices**: w
 
 ## Where this works (and where it doesn't)
 
-GitHub Copilot is one product; the GitHub platform is another. Most of this course works for anyone with a Copilot license, regardless of where the source code lives. A few features need GitHub the platform — Enterprise or Business — and one feature class (agentic workflows) needs GitHub Actions specifically.
+GitHub Copilot is one product; the GitHub platform is another. Most of this course works for anyone with a GitHub Copilot license, regardless of where the source code lives. A few features need GitHub the platform and one feature class (agentic workflows) needs GitHub Actions specifically.
 
 | Capability | Works with Copilot alone (any repo host: ADO, GitLab, Bitbucket) | Needs GitHub the platform |
 |------------|---|---|
