@@ -132,20 +132,16 @@ For most rules at this stakes level, the right answer is the instruction; for th
 
 ## 8. Cheat sheet, with this module's primitives in focus
 
-The decision table from Module 1, with the rows this module covered annotated:
+The four rows from the [Module 1 cheat sheet](module-01-customization-primitives.md#5-the-decision-cheat-sheet) this module zooms into:
 
 | If you want… | Reach for | Loading rule | Cost |
 |---|---|---|---|
-| A rule that should hold across every request | Repo / personal / org instruction | Every request | High (eager) |
-| A rule that only matters for certain files | Scoped instruction (`applyTo` glob) | On glob match | Medium (eager when matched) |
-| A workflow *you* will run repeatedly | Prompt | On user invoke | Zero unless invoked |
-| Knowledge the *model* should reach for when relevant | Skill | Description always; body when model decides | Low until used |
-| **A persona with its own tools and defaults** | **→ Custom agent** | **On user invoke** | **Zero unless invoked — covered here** |
-| **A capability the model can't otherwise reach** | **→ MCP server** | **Tool list always; call when model decides** | **Low until called — covered here** |
-| **A guarantee that always runs** | **→ Hook** | **On lifecycle event** | **Zero (outside model context) — covered here** |
-| **A wide read with a small answer** | **→ Subagent** | **On main agent's request** | **Low (summary only) — covered here** |
+| A persona with its own tools and defaults | Custom agent | On user invoke | **Zero unless invoked** |
+| A capability the model can't otherwise reach | MCP server | Tool list always; call when model decides | **Low until called** |
+| A guarantee that always runs | Hook | On lifecycle event | **Zero (outside model context)** |
+| A wide read with a small answer | Subagent | On main agent's request | **Low (summary only)** |
 
-The primitive set is now complete. Modules 6–9 are about packaging, composing, extending into CI, and governing the primitives — not about new ones.
+The primitive set is now complete. Modules 6–9 are about packaging, composing, extending into CI, and governing these primitives — not about new ones.
 
 ## 9. What to carry into the next module
 

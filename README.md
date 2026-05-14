@@ -73,7 +73,7 @@ Who the course is for, scope, where it works (Copilot vs. GitHub-the-platform), 
 
 **Synopsis.** Customization stops being personal and starts being organizational here. How plugins bundle multiple primitives behind a single install command, how marketplaces (including the canonical `awesome-copilot` collection) make them discoverable, and the versioning discipline that keeps shared customizations honest. The CI side is its own module — see Module 8.
 
-#### [Module 7 — Capstone: Composing Primitives on `payments-api`](module-07-capstone-payments-api.md)
+#### [Module 7 — Composition Walkthrough: Primitives on `payments-api`](module-07-composition-walkthrough.md)
 **Learning outcomes**
 1. Apply the primitives from Modules 2–5 in combination on one realistic codebase.
 2. Diagnose, for any specific failure, which primitive the fix belongs in.

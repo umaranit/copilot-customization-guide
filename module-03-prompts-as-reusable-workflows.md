@@ -104,20 +104,13 @@ If you find your prompt explaining "how things work in this codebase," that expl
 
 ## 8. Cheat sheet, with prompts in focus
 
-The decision table from Module 1, with the row this module covered annotated:
+The row from the [Module 1 cheat sheet](module-01-customization-primitives.md#5-the-decision-cheat-sheet) this module zooms into:
 
 | If you want… | Reach for | Loading rule | Cost |
 |---|---|---|---|
-| A rule that should hold across every request | Repo / personal / org instruction | Every request | High (eager) |
-| A rule that only matters for certain files | Scoped instruction (`applyTo` glob) | On glob match | Medium (eager when matched) |
-| **A workflow *you* will run repeatedly via slash command** | **→ Prompt** | **On user invoke** | **Zero unless invoked — covered here** |
-| Knowledge the *model* should reach for when relevant | Skill | Description always; body when model decides | Low until used |
-| A persona with its own tools and defaults | Custom agent | On user invoke | Zero unless invoked |
-| A capability the model can't otherwise reach | MCP server | Tool list always; call when model decides | Low until called |
-| A guarantee that always runs | Hook | On lifecycle event | Zero (outside model context) |
-| A wide read with a small answer | Subagent | On main agent's request | Low (summary only) |
+| A workflow *you* will run repeatedly via slash command | Prompt | On user invoke | **Zero unless invoked** |
 
-Notice: prompts and custom agents share the *on user invoke* row. The difference is **persistence** — a prompt resets after one exchange; a custom agent keeps its persona across follow-ups. Module 5 covers that distinction.
+Notice: prompts and custom agents share the *on user invoke* trigger. The difference is **persistence** — a prompt resets after one exchange; a custom agent keeps its persona across follow-ups. Module 5 covers that distinction.
 
 ## 9. What to carry into the next module
 

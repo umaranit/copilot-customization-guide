@@ -40,7 +40,7 @@ GitHub Copilot is one product; the GitHub platform is another. Most of this cour
 | Copilot code review on pull requests | — | GitHub PRs |
 | Agentic workflows (Markdown-defined GitHub Actions) | — | GitHub Actions |
 
-**For Azure DevOps / GitLab / Bitbucket users:** everything in Modules 1–5 and the capstone in Module 7 works the same way. In Module 2, the "organization tier" needs a workaround (a shared template repo or a plugin distributed through your internal marketplace). In Module 8, agentic workflows have direct equivalents — Azure DevOps Pipelines, GitLab CI, Jenkins — that can shell out to the Copilot CLI or a model API for the same outcomes; the pattern is portable even if the YAML isn't. In Module 9, the enterprise-tier policies, audit log streaming, and ruleset enforcement become CI checks, branch policies, and shared-standards repos in your own platform.
+**For Azure DevOps / GitLab / Bitbucket users:** everything in Modules 1–5 and the composition walkthrough in Module 7 works the same way. In Module 2, the "organization tier" needs a workaround (a shared template repo or a plugin distributed through your internal marketplace). In Module 8, agentic workflows have direct equivalents — Azure DevOps Pipelines, GitLab CI, Jenkins — that can shell out to the Copilot CLI or a model API for the same outcomes; the pattern is portable even if the YAML isn't. In Module 9, the enterprise-tier policies, audit log streaming, and ruleset enforcement become CI checks, branch policies, and shared-standards repos in your own platform.
 
 The platform-specific bits are called out inline in each module.
 

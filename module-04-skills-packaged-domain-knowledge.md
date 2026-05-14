@@ -106,18 +106,11 @@ The mental model: instructions set the *baseline*, skills add *expertise on dema
 
 ## 7. Cheat sheet, with skills in focus
 
-The decision table from Module 1, with the row this module covered annotated:
+The row from the [Module 1 cheat sheet](module-01-customization-primitives.md#5-the-decision-cheat-sheet) this module zooms into:
 
 | If you want… | Reach for | Loading rule | Cost |
 |---|---|---|---|
-| A rule that should hold across every request | Repo / personal / org instruction | Every request | High (eager) |
-| A rule that only matters for certain files | Scoped instruction (`applyTo` glob) | On glob match | Medium (eager when matched) |
-| A workflow *you* will run repeatedly | Prompt | On user invoke | Zero unless invoked |
-| **Knowledge the *model* should reach for when relevant** | **→ Skill** | **Description always; body when model decides** | **Low (description only) until used — covered here** |
-| A persona with its own tools and defaults | Custom agent | On user invoke | Zero unless invoked |
-| A capability the model can't otherwise reach | MCP server | Tool list always; call when model decides | Low until called |
-| A guarantee that always runs | Hook | On lifecycle event | Zero (outside model context) |
-| A wide read with a small answer | Subagent | On main agent's request | Low (summary only) |
+| Knowledge the *model* should reach for when relevant | Skill | Description always; body when model decides | **Low (description only) until used** |
 
 The skill row is the only one with a *split* loading rule: eager description, lazy body. That split is the whole reason the primitive exists — it lets you advertise large knowledge cheaply.
 

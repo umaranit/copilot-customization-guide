@@ -1,4 +1,4 @@
-# Module 7: Capstone — Composing Primitives on `payments-api`
+# Module 7: Composition Walkthrough — Primitives on `payments-api`
 
 > Part of [Designing Scalable, Reusable GitHub Copilot Customizations](README.md).
 >

@@ -83,7 +83,7 @@ These are easy to slip into and easy to fix once you spot them.
 
 ## 5. The decision cheat sheet
 
-Most of the rest of the course returns to one decision table. Here's the seed version — each later module re-shows it with new rows annotated as that primitive is introduced.
+This is the canonical reference for the rest of the course. Each later module opens with a one- or two-row slice of it — the row(s) that module covers in depth — and links back here for the full picture.
 
 | If you want… | Reach for | Loading rule | Cost | Example |
 |---|---|---|---|---|
