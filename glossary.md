@@ -38,7 +38,7 @@
 
 **Prompt file.** A `*.prompt.md` file that turns a recurring chat ask into a parameterized, invokable workflow. Fires when the user types its slash command. *(Module 3.)*
 
-**Mode.** A prompt's runtime profile: `ask` (chat-only), `edit` (file edits, no tools), or `agent` (full tool access). Pick the smallest that does the job. *(Module 3.)*
+**Agent (prompt).** A prompt's runtime profile, set via the `agent` frontmatter field: `ask` (chat-only Q&A), `plan` (research + structured implementation plan, no changes), or `agent` (full tool access — reads, edits, runs). Pick the smallest that does the job. The older `edit` mode is deprecated; Agent now handles focused edits too. *(Module 3.)*
 
 **Tool restriction.** A frontmatter field listing which tools a prompt may call. Used to scope behavior, not for security. *(Module 3.)*
 

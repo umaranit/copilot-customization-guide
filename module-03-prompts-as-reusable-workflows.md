@@ -37,21 +37,23 @@ A good prompt reads like a short recipe with placeholders, not a wall of text. I
 
 *Example.* A `/add-test` prompt for generating tests should say *"write a test for `${file}`, mirror the path, cover happy + edge + error case, use AAA blocks."* It should **not** restate "we use Vitest" — that already lives in the repo instructions.
 
-## 3. Choosing the mode
+## 3. Choosing the agent
 
-Prompts run in one of three modes. The choice shapes what the prompt can actually do:
+Prompts run under one of three built-in agents (set via the `agent` field in frontmatter, or inherited from the active chat agent). The choice shapes what the prompt can actually do:
 
-- **`ask`** — chat-only. The model talks back; nothing in your workspace changes. Use for analysis, explanations, planning.
-- **`edit`** — the model can modify open files but cannot run tools. Use for focused, in-place changes (rename, refactor, add a missing function).
-- **`agent`** — full tool access (read, write, run, search). Use for multi-step workflows that touch several files or need to inspect the codebase first.
+- **`ask`** — chat-only. The model talks back; nothing in your workspace changes. Use for analysis, explanations, Q&A about the codebase.
+- **`plan`** — research and produce a structured implementation plan, with clarifying questions, but stop short of making changes. Use when you want a reviewed plan before any code is written.
+- **`agent`** — full tool access (read, write, run, search). Use for multi-step workflows that touch several files, need to inspect the codebase, or carry the work all the way to a working change.
 
 A simple decision rule:
 
-- *Read-only?* → `ask`
-- *One file, in-place change?* → `edit`
-- *Anything that needs to look around or touch multiple files?* → `agent`
+- *Read-only Q&A?* → `ask`
+- *Want a plan before any change?* → `plan`
+- *Anything that actually edits files or runs tools?* → `agent`
 
-Defaulting everything to `agent` works but gives the model more rope than it usually needs. Pick the smallest mode that gets the job done.
+Defaulting everything to `agent` works but gives the model more rope than it usually needs. Pick the smallest agent that gets the job done.
+
+> **Note.** The older `edit` mode is deprecated and hidden by default in current VS Code — Agent mode now covers focused single-file edits as well as multi-file work. If you still see references to `edit` in older prompts or examples, treat them as `agent`. The setting `chat.editMode.hidden` can restore it temporarily if a team needs it during migration. Older docs also called these "chat modes"; they're now called **agents**, and custom variants live in `.agent.md` files (see Module 5).
 
 ## 4. Restricting tools — guardrails on purpose
 

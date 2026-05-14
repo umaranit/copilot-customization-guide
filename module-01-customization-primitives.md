@@ -85,18 +85,18 @@ These are easy to slip into and easy to fix once you spot them.
 
 Most of the rest of the course returns to one decision table. Here's the seed version — each later module re-shows it with new rows annotated as that primitive is introduced.
 
-| If you want… | Reach for | Loading rule | Cost |
-|---|---|---|---|
-| A rule that should hold across every request | **Repo / personal / org instruction** | Every request | High (eager) |
-| A rule that only matters for certain files | **Scoped instruction** (`applyTo` glob) | On glob match | Medium (eager when matched) |
-| A workflow *you* will run repeatedly via slash command | **Prompt** | On user invoke | Zero unless invoked |
-| A body of knowledge the *model* should reach for when relevant | **Skill** | Description always; body when model decides | Low (description only) until used |
-| A persona with its own tools and defaults | **Custom agent** | On user invoke | Zero unless invoked |
-| A capability the model otherwise can't reach (DB, API, CLI) | **MCP server** | Tool list always; tool call when model decides | Low (tool list only) until called |
-| A guarantee that must always run, regardless of model intent | **Hook** | On lifecycle event | Zero (runs outside model context) |
-| A wide read where the answer is small | **Subagent** | On main agent's request | Low (only the summary returns) |
-| A bundle of the above shared across repos | **Plugin** | Same as the contained primitives | Same as the contained primitives |
-| Work that should run on a repo event with no developer present | **Agentic workflow** (CI) | On CI event | Per-run runner + model cost |
+| If you want… | Reach for | Loading rule | Cost | Example |
+|---|---|---|---|---|
+| A rule that should hold across every request | **Repo / personal / org instruction** | Every request | High (eager) | "Use TypeScript strict mode in all new files." |
+| A rule that only matters for certain files | **Scoped instruction** (`applyTo` glob) | On glob match | Medium (eager when matched) | `applyTo: "**/*.test.ts"` → "Use Vitest, AAA structure, mock the DB." |
+| A workflow *you* will run repeatedly via slash command | **Prompt** | On user invoke | Zero unless invoked | `/add-test` — generates a test file for the attached source file. |
+| A body of knowledge the *model* should reach for when relevant | **Skill** | Description always; body when model decides | Low (description only) until used | `db-migration` skill — fires when the model is writing a migration; explains up/down/rollback. |
+| A persona with its own tools and defaults | **Custom agent** | On user invoke | Zero unless invoked | `reviewer` agent — read-only tools, "never edit; output `file:line, severity, rule, fix`." |
+| A capability the model otherwise can't reach (DB, API, CLI) | **MCP server** | Tool list always; tool call when model decides | Low (tool list only) until called | Postgres MCP server exposing `query` and `describe_table` against the dev DB. |
+| A guarantee that must always run, regardless of model intent | **Hook** | On lifecycle event | Zero (runs outside model context) | Post-edit hook runs Prettier on every `.ts` file the agent writes. |
+| A wide read where the answer is small | **Subagent** | On main agent's request | Low (only the summary returns) | `Explore` subagent — searches the repo for "where is auth configured?" and returns a one-paragraph summary. |
+| A bundle of the above shared across repos | **Plugin** | Same as the contained primitives | Same as the contained primitives | `payments-standards` plugin — ships instructions, a `/add-endpoint` prompt, and a `pci-checklist` skill. |
+| Work that should run on a repo event with no developer present | **Agentic workflow** (CI) | On CI event | Per-run runner + model cost | GitHub Action that triages new issues by labeling, summarizing, and assigning on `issues.opened`. |
 
 Keep this table in mind as you read. Every later module is, in effect, *one row of this table, in depth*.
 
