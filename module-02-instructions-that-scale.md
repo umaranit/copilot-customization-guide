@@ -88,16 +88,16 @@ Either way, the content rules are the same — short, broadly applicable, author
 
 The decision table from Module 1, with the row this module covered annotated:
 
-| If you want… | Reach for | Loading rule | Cost |
-|---|---|---|---|
-| **A rule that should hold across every request** | **→ Repo / personal / org instruction** | **Every request** | **High (eager) — covered here** |
-| **A rule that only matters for certain files** | **→ Scoped instruction (`applyTo` glob)** | **On glob match** | **Medium (eager when matched) — covered here** |
-| A workflow *you* will run repeatedly | Prompt | On user invoke | Zero unless invoked |
-| Knowledge the *model* should reach for when relevant | Skill | Description always; body when model decides | Low until used |
-| A persona with its own tools and defaults | Custom agent | On user invoke | Zero unless invoked |
-| A capability the model can't otherwise reach | MCP server | Tool list always; call when model decides | Low until called |
-| A guarantee that always runs | Hook | On lifecycle event | Zero (outside model context) |
-| A wide read with a small answer | Subagent | On main agent's request | Low (summary only) |
+| If you want… | Reach for | Loading rule | Cost | Example |
+|---|---|---|---|---|
+| **A rule that should hold across every request** | **→ Repo / personal / org instruction** | **Every request** | **High (eager) — covered here** | **"Always use TypeScript strict mode in this repo."** |
+| **A rule that only matters for certain files** | **→ Scoped instruction (`applyTo` glob)** | **On glob match** | **Medium (eager when matched) — covered here** | **`applyTo: "**/*.test.ts"` → "Use Vitest, not Jest, for new tests."** |
+| A workflow *you* will run repeatedly | Prompt | On user invoke | Zero unless invoked | `/generate-release-notes` that diffs the last tag and drafts notes |
+| Knowledge the *model* should reach for when relevant | Skill | Description always; body when model decides | Low until used | A `payments-api` skill the model loads only when touching billing code |
+| A persona with its own tools and defaults | Custom agent | On user invoke | Zero unless invoked | A `db-migrator` agent restricted to migration tools and the schema folder |
+| A capability the model can't otherwise reach | MCP server | Tool list always; call when model decides | Low until called | A Jira MCP server exposing `create_ticket` and `search_issues` |
+| A guarantee that always runs | Hook | On lifecycle event | Zero (outside model context) | A pre-commit hook that runs `prettier` on every staged file |
+| A wide read with a small answer | Subagent | On main agent's request | Low (summary only) | An `Explore` subagent that scans the repo and returns a 5-line summary |
 
 The two highest-cost rows belong to instructions. That's the source of every line of advice in this module.
 
